@@ -4,7 +4,8 @@
   "description": "A through stream which converts markup in text form to JSONML",
   "main": "index.js",
   "scripts": {
-    "test": "covert test/test.js && test/cli.sh"
+    "testling": "browserify -t brfs test/test.js | testling",
+    "test": "cd test; covert test.js && ./cli.sh"
   },
   "bin": {
     "jsonmlify": "bin/cli.js"
@@ -32,7 +33,10 @@
     "nomnom": "^1.8.0"
   },
   "devDependencies": {
+    "brfs": "^1.2.0",
+    "browserify": "^5.9.1",
     "covert": "^0.4.0",
-    "tape": "^2.13.4"
+    "tape": "^2.13.4",
+    "testling": "^1.7.0"
   }
 }
