@@ -33,3 +33,13 @@ test('should parse nested tags and text nodes', function(t) {
 test('should parse comments', function(t) {
     verify('05-comments', t);
 });
+
+test('should report errors', function(t) {
+    var stream = jsonmlify();
+    stream.on('error', function(err) {
+        t.ok(err);
+        t.end();
+    });
+    stream.end();
+    stream.write('<div></div>'); // Write after close to provoke an error
+});

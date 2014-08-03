@@ -29,6 +29,9 @@ module.exports = function() {
             delete parent.parent;
             parent = p;
         },
+        onerror: function(err) {
+            parser.emit('error', err);
+        },
         onend: function() {
             parser.emit('data', parent);
         }
