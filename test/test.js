@@ -25,3 +25,7 @@ test('should not set a node-list array on the node if it has no children', funct
 test('should not set a attribute hash on the node if it has none', function(t) {
     verify('03-no-attributes', t);
 });
+
+test('should parse nested tags and text nodes', function(t) {
+    verify('04-nested-tags', t);
+});
