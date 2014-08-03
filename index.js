@@ -5,7 +5,8 @@ module.exports = function() {
     var parser = new Parser({
         onopentag: function(tagName, attributes) {
             var elementList = [];
-            parent.push([tagName, attributes, elementList]);
+            var element = [tagName, attributes, elementList];
+            parent.push(element);
             elementList.parent = parent;
             parent = elementList;
         },
@@ -14,6 +15,11 @@ module.exports = function() {
         },
         onclosetag: function() {
             var p = parent.parent;
+            // Delete elementList if it is empty
+            var lastChild = p[p.length - 1];
+            if (lastChild[2].length === 0) {
+                delete lastChild[2];
+            }
             delete parent.parent;
             parent = p;
         },
