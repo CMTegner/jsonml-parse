@@ -1,4 +1,5 @@
 var Parser = require('htmlparser2').Parser;
+var isEmpty = require('lodash.isempty');
 
 module.exports = function() {
     var parent = [];
@@ -15,10 +16,12 @@ module.exports = function() {
         },
         onclosetag: function() {
             var p = parent.parent;
-            // Delete elementList if it is empty
+            // Delete elementList and/or attributes if empty
             var lastChild = p[p.length - 1];
-            if (lastChild[2].length === 0) {
-                delete lastChild[2];
+            for (var i = 1; i < 3; i++) {
+                if (isEmpty(lastChild[i])) {
+                    delete lastChild[i];
+                }
             }
             delete parent.parent;
             parent = p;

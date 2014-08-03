@@ -21,3 +21,7 @@ test('should return an empty array for empty input markup', function(t) {
 test('should not set a node-list array on the node if it has no children', function(t) {
     verify('02-single-shallow-tag', t);
 });
+
+test('should not set a attribute hash on the node if it has none', function(t) {
+    verify('03-no-attributes', t);
+});
