@@ -29,3 +29,7 @@ test('should not set a attribute hash on the node if it has none', function(t) {
 test('should parse nested tags and text nodes', function(t) {
     verify('04-nested-tags', t);
 });
+
+test('should parse comments', function(t) {
+    verify('05-comments', t);
+});

@@ -1,0 +1,5 @@
+[
+    ["#comment", " this is a comment "],
+    ["#text", "\nNot a comment\n"],
+    ["#comment", " another comment "]
+]

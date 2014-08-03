@@ -14,6 +14,9 @@ module.exports = function() {
         ontext: function(text) {
             parent.push(['#text', text]);
         },
+        oncomment: function(text) {
+            parent.push(['#comment', text]);
+        },
         onclosetag: function() {
             var p = parent.parent;
             // Delete elementList and/or attributes if empty
