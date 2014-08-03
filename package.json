@@ -1,0 +1,30 @@
+{
+  "name": "jsonmlify",
+  "version": "1.0.0",
+  "description": "A through stream which converts markup in text form to JSONML",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:CMTegner/jsonmlify"
+  },
+  "keywords": [
+    "html",
+    "json",
+    "jsonml",
+    "browserify",
+    "transform"
+  ],
+  "author": "Christian Tegner",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CMTegner/jsonmlify/issues"
+  },
+  "homepage": "https://github.com/CMTegner/jsonmlify",
+  "dependencies": {
+    "htmlparser2": "^3.7.3",
+    "tape": "^2.13.4"
+  }
+}
