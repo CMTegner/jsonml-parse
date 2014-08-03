@@ -41,6 +41,14 @@ test('should parse comments', function(t) {
     verify(markup, expected, t);
 });
 
+test('should also expose a node-style callback API', function(t) {
+    jsonmlify('<div></div>', function(err, result) {
+        t.notOk(err);
+        t.deepEqual(result, [['div']]);
+        t.end();
+    });
+});
+
 test('should report errors', function(t) {
     var stream = jsonmlify();
     stream.on('error', function(err) {

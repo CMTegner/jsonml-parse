@@ -1,7 +1,7 @@
 var Parser = require('htmlparser2').Parser;
 var isEmpty = require('lodash.isempty');
 
-module.exports = function() {
+module.exports = function(markup, callback) {
     var parent = [];
     var parser = new Parser({
         onopentag: function(tagName, attributes) {
@@ -37,5 +37,13 @@ module.exports = function() {
             parser.emit('end');
         }
     });
-    return parser;
+    if (isEmpty(arguments)) {
+        return parser;
+    } else {
+        parser.on('data', function(data) {
+            callback(null, data);
+        });
+        parser.on('error', callback);
+        parser.end(markup);
+    }
 };
