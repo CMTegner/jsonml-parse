@@ -6,11 +6,8 @@ function verify(testDir, t) {
     fs.createReadStream(__dirname + '/' + testDir + '/markup.html')
         .pipe(jsonmlify())
         .on('data', function(data) {
-            t.deepEqual(data, require('./' + testDir + '/expected.json'));
+            t.deepEqual(data, require(__dirname + '/' + testDir + '/expected.json'));
             t.end();
-        })
-        .on('error', function(err) {
-            t.fail(err);
         });
 }
 
