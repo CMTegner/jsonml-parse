@@ -4,7 +4,10 @@
   "description": "A through stream which converts markup in text form to JSONML",
   "main": "index.js",
   "scripts": {
-    "test": "tape test/test.js"
+    "test": "tape test/test.js && test/cli.sh"
+  },
+  "bin": {
+    "jsonmlify": "bin/cli.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +29,7 @@
   "dependencies": {
     "htmlparser2": "^3.7.3",
     "lodash.isempty": "^2.4.1",
+    "nomnom": "^1.8.0",
     "tape": "^2.13.4"
   }
 }

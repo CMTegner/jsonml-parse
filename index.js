@@ -34,6 +34,7 @@ module.exports = function() {
         },
         onend: function() {
             parser.emit('data', parent);
+            parser.emit('end');
         }
     });
     return parser;
