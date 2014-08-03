@@ -1,17 +1,33 @@
 var fs = require('fs');
 var test = require('tape');
+var Transform = require('stream').Transform;
 var jsonmlify = require('../');
 
 function verify(markup, expected, t) {
+    var result;
     jsonmlify()
         .on('data', function(data) {
-            t.deepEqual(data, expected);
+            result = data;
+        })
+        .on('end', function() {
+            t.deepEqual(result, expected);
             t.end();
         })
         .end(markup);
 }
 
-test('should return an empty array for empty input markup', function(t) {
+test('should return a transform stream', function(t) {
+    t.ok(jsonmlify() instanceof Transform);
+    t.ok(new jsonmlify() instanceof Transform);
+    t.end();
+});
+
+test('should not return anything in \'callback mode\'', function(t) {
+    t.equal(jsonmlify('foo', function() {}), undefined);
+    t.end();
+});
+
+test('should emit an empty array for empty input markup', function(t) {
     var markup = fs.readFileSync(__dirname + '/01-empty/markup.html', 'utf8');
     var expected = require('./01-empty/expected.json');
     verify(markup, expected, t);
@@ -41,7 +57,7 @@ test('should parse comments', function(t) {
     verify(markup, expected, t);
 });
 
-test('should also expose a node-style callback API', function(t) {
+test('should also offer a node-style callback API', function(t) {
     jsonmlify('<div></div>', function(err, result) {
         t.notOk(err);
         t.deepEqual(result, [['div']]);
@@ -50,11 +66,18 @@ test('should also expose a node-style callback API', function(t) {
 });
 
 test('should report errors', function(t) {
+    var errorCount = 0;
     var stream = jsonmlify();
     stream.on('error', function(err) {
+        errorCount++;
         t.ok(err);
-        t.end();
+        if (errorCount === 2) {
+            t.end();
+        }
     });
     stream.end();
-    stream.write('<div></div>'); // Write after close to provoke an error
+    // Write after end to provoke an error in the writable stream
+    stream.write('<div></div>');
+    // Write to HTML parser after end to provoke an internal error
+    stream.source.write('<div></div>');
 });
