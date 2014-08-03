@@ -1,11 +1,11 @@
 var fs = require('fs');
 var test = require('tape');
 var Transform = require('stream').Transform;
-var jsonmlify = require('../');
+var parse = require('../');
 
 function verify(markup, expected, t) {
     var result;
-    jsonmlify()
+    parse()
         .on('data', function(data) {
             result = data;
         })
@@ -17,13 +17,13 @@ function verify(markup, expected, t) {
 }
 
 test('should return a transform stream', function(t) {
-    t.ok(jsonmlify() instanceof Transform);
-    t.ok(new jsonmlify() instanceof Transform);
+    t.ok(parse() instanceof Transform);
+    t.ok(new parse() instanceof Transform);
     t.end();
 });
 
 test('should not return anything in \'callback mode\'', function(t) {
-    t.equal(jsonmlify('foo', function() {}), undefined);
+    t.equal(parse('foo', function() {}), undefined);
     t.end();
 });
 
@@ -58,7 +58,7 @@ test('should parse comments', function(t) {
 });
 
 test('should also offer a node-style callback API', function(t) {
-    jsonmlify('<div></div>', function(err, result) {
+    parse('<div></div>', function(err, result) {
         t.notOk(err);
         t.deepEqual(result, [['div']]);
         t.end();
@@ -67,7 +67,7 @@ test('should also offer a node-style callback API', function(t) {
 
 test('should report errors', function(t) {
     var errorCount = 0;
-    var stream = jsonmlify();
+    var stream = parse();
     stream.on('error', function(err) {
         errorCount++;
         t.ok(err);
