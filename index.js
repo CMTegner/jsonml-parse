@@ -18,9 +18,9 @@ module.exports = function() {
             var p = parent.parent;
             // Delete elementList and/or attributes if empty
             var lastChild = p[p.length - 1];
-            for (var i = 1; i < 3; i++) {
+            for (var i = 2; i > 0; i--) {
                 if (isEmpty(lastChild[i])) {
-                    delete lastChild[i];
+                    lastChild.splice(i, 1);
                 }
             }
             delete parent.parent;
