@@ -1,32 +1,31 @@
 {
-  "name": "jsonmlify",
+  "name": "jsonml-parse",
   "version": "1.0.0",
-  "description": "A through stream which converts markup in text form to JSONML",
+  "description": "Convert markup in text form to JSONML",
   "main": "index.js",
   "scripts": {
     "testling": "browserify -t brfs test/test.js | testling",
     "test": "cd test; covert test.js && ./cli.sh"
   },
   "bin": {
-    "jsonmlify": "bin/cli.js"
+    "jsonmlparse": "bin/cli.js"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:CMTegner/jsonmlify"
+    "url": "git@github.com:CMTegner/jsonml-parse"
   },
   "keywords": [
     "html",
     "json",
     "jsonml",
-    "browserify",
-    "transform"
+    "parse"
   ],
   "author": "Christian Tegner",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/CMTegner/jsonmlify/issues"
+    "url": "https://github.com/CMTegner/jsonml-parse/issues"
   },
-  "homepage": "https://github.com/CMTegner/jsonmlify",
+  "homepage": "https://github.com/CMTegner/jsonml-parse",
   "dependencies": {
     "htmlparser2": "^3.7.3",
     "lodash.isempty": "^2.4.1",
