@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 var fs = require('fs');
-var jsonmlify = require('../');
+var parse = require('../');
 var args = require('nomnom')
     .option('output', {
         abbr: 'o',
@@ -40,7 +40,7 @@ if (!args.file) {
         });
 }
 
-var parser = jsonmlify();
+var parser = parse();
 input
     .pipe(parser)
     .on('data', function(data) {
