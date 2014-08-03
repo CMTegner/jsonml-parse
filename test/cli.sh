@@ -5,3 +5,7 @@ node ${base}/../bin/cli.js ${base}/cli/markup.html | diff -q ${base}/cli/expecte
 node ${base}/../bin/cli.js ${base}/cli/markup.html -o ${base}/cli/tmp.json
 diff -q ${base}/cli/expected.json ${base}/cli/tmp.json
 rm ${base}/cli/tmp.json
+set +e
+error=$(node ${base}/../bin/cli.js nope 2>&1)
+test $? -eq 1
+[ "$error" = "No such file: nope" ] || (echo "'No such file' logic is broken!"; exit 1)
