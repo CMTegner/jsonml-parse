@@ -4,7 +4,7 @@
   "description": "A through stream which converts markup in text form to JSONML",
   "main": "index.js",
   "scripts": {
-    "test": "tape test/**/*.js"
+    "test": "tape test/test.js"
   },
   "repository": {
     "type": "git",
