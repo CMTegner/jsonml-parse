@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 var fs = require('fs');
+var path = require('path');
 var parse = require('../');
+var stringify = require('JSONStream').stringify;
 var args = require('nomnom')
     .option('output', {
         abbr: 'o',
@@ -40,28 +42,32 @@ if (!args.file) {
         });
 }
 
+var output;
+if (args.output) {
+    output = fs.createWriteStream(args.output)
+        .on('error', function(err) {
+            if (err.code === 'ENOENT') {
+                var dir = path.dirname(args.output);
+                console.error('No such directory: %s', dir);
+                process.exit(1);
+                return;
+            }
+            throw err;
+        });
+} else {
+    output = process.stdout
+        .on('error', function (err) {
+            if (process.stdout.isTTY) {
+                // Only throw output errors if we're in
+                // a TTY to prevent noise when piping
+                // the output to other commands
+                throw err;
+            }
+        });
+}
+
 var parser = parse();
 input
     .pipe(parser)
-    .on('data', function(data) {
-        var str = JSON.stringify(data);
-        if (args.output) {
-            fs.createWriteStream(args.output)
-                .on('error', function(err) {
-                    throw err;
-                })
-                .end(str, 'utf8');
-        } else {
-            process.stdout.write(str);
-        }
-    })
-    .on('end', function () {
-        if (!process.stdout.isTTY) {
-            // Prevent noise if the command you're
-            // piping the output to fails
-            process.exit(0);
-        }
-    })
-    .on('error', function (err) {
-        throw err;
-    });
+    .pipe(stringify(false))
+    .pipe(output);

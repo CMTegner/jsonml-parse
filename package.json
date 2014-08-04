@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/CMTegner/jsonml-parse",
   "dependencies": {
+    "JSONStream": "^0.8.4",
     "htmlparser2": "^3.7.3",
     "lodash.isempty": "^2.4.1",
     "nomnom": "^1.8.0"
