@@ -27,29 +27,24 @@ JSONMLParser.prototype._createSourceOptions = function() {
     var transform = this;
     return {
         onopentag: function(tagName, attributes) {
-            var elementList = [];
-            var element = [tagName, attributes, elementList];
+            var element = [tagName];
+            if (!isEmpty(attributes)) {
+                element.push(attributes);
+            }
             transform._parent.push(element);
-            elementList.parent = transform._parent;
-            transform._parent = elementList;
+            element.parent = transform._parent;
+            transform._parent = element;
         },
         ontext: function(text) {
-            transform._parent.push(['#text', text]);
+            transform._parent.push(text);
         },
         oncomment: function(text) {
             transform._parent.push(['#comment', text]);
         },
         onclosetag: function() {
-            var p = transform._parent.parent;
-            // Delete elementList and/or attributes if empty
-            var lastChild = p[p.length - 1];
-            for (var i = 2; i > 0; i--) {
-                if (isEmpty(lastChild[i])) {
-                    lastChild.splice(i, 1);
-                }
-            }
+            var parent = transform._parent.parent;
             delete transform._parent.parent;
-            transform._parent = p;
+            transform._parent = parent;
         },
         onerror: function(err) {
             transform.emit('error', err);

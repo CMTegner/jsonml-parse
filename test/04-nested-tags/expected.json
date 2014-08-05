@@ -1,9 +1,9 @@
-[["ul", [
-    ["#text", "\n    "],
-    ["li", [["#text", "One"]]],
-    ["#text", "\n    "],
-    ["li", { "class": "selected" }, [["#text", "Two"]]],
-    ["#text", "\n    "],
-    ["li", [["#text", "Three"]]],
-    ["#text", "\n"]
-]]]
+[["ul",
+    "\n    ",
+    ["li", "One"],
+    "\n    ",
+    ["li", { "class": "selected" }, "Two"],
+    "\n    ",
+    ["li", "Three"],
+    "\n"
+]]
