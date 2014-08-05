@@ -57,6 +57,12 @@ test('should parse comments', function(t) {
     verify(markup, expected, t);
 });
 
+test('should convert HTML entities into unicode characters', function(t) {
+    var markup = fs.readFileSync(__dirname + '/06-html-entities/markup.html', 'utf8');
+    var expected = require('./06-html-entities/expected.json');
+    verify(markup, expected, t);
+});
+
 test('should also offer a node-style callback API', function(t) {
     parse('<div></div>', function(err, result) {
         t.notOk(err);

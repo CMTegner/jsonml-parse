@@ -2,6 +2,7 @@ var util = require('util');
 var Transform = require('stream').Transform;
 var Parser = require('htmlparser2').Parser;
 var isEmpty = require('lodash.isempty');
+var decode = (new (require('html-entities').AllHtmlEntities)()).decode;
 
 util.inherits(JSONMLParser, Transform);
 
@@ -36,7 +37,7 @@ JSONMLParser.prototype._createSourceOptions = function() {
             transform._parent = element;
         },
         ontext: function(text) {
-            transform._parent.push(text);
+            transform._parent.push(decode(text));
         },
         oncomment: function(text) {
             transform._parent.push(['#comment', text]);
