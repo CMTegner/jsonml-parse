@@ -24,14 +24,14 @@
     "jsonml",
     "parse"
   ],
-  "author": "Christian Tegner",
+  "author": "Christian Tegnér",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/CMTegner/jsonml-parse/issues"
   },
   "homepage": "https://github.com/CMTegner/jsonml-parse",
   "dependencies": {
-    "JSONStream": "^0.8.4",
+    "JSONStream": "^0.9.0",
     "concat-stream": "^1.4.6",
     "html-entities": "^1.0.10",
     "htmlparser2": "^3.7.3",
@@ -39,11 +39,11 @@
     "nomnom": "^1.8.0"
   },
   "devDependencies": {
-    "browserify": "^5.9.1",
-    "covert": "^0.4.0",
+    "browserify": "^5.10.0",
+    "covert": "^1.0.0",
     "jscs": "^1.5.9",
     "jshint": "^2.5.3",
-    "tape": "^2.13.4",
+    "tape": "^2.14.0",
     "testling": "^1.7.0"
   }
 }
