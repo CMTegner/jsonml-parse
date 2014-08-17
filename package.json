@@ -4,7 +4,9 @@
   "description": "Convert markup in text form to JSONML",
   "main": "index.js",
   "scripts": {
-    "validate": "jshint index.js test",
+    "jshint": "jshint index.js test",
+    "jscs": "jscs index.js test",
+    "validate": "npm run jshint && npm run jscs",
     "testling": "browserify -t brfs test/test.js | testling",
     "test": "cd test; covert test.js && ./cli.sh"
   },
@@ -38,6 +40,7 @@
     "brfs": "^1.2.0",
     "browserify": "^5.9.1",
     "covert": "^0.4.0",
+    "jscs": "^1.5.9",
     "jshint": "^2.5.3",
     "tape": "^2.13.4",
     "testling": "^1.7.0"
