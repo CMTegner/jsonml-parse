@@ -1,6 +1,7 @@
 var util = require('util');
 var Transform = require('stream').Transform;
 var Parser = require('htmlparser2').Parser;
+var concat = require('concat-stream');
 var isEmpty = require('lodash.isempty');
 var decode = (new (require('html-entities').AllHtmlEntities)()).decode;
 
@@ -65,16 +66,9 @@ module.exports = function(markup, callback) {
     if (isEmpty(arguments)) {
         return parser;
     } else {
-        var result = [];
-        parser.on('data', function(data) {
-            result.push(data);
-        });
-        parser.on('end', function() {
-            if (result.length < 2) {
-                result = result[0];
-            }
-            callback(null, result);
-        });
+        parser.pipe(concat({ encoding: 'object' }, function(data) {
+            callback(null, data[1] ? data : data[0]);
+        }));
         parser.on('error', callback);
         parser.end(markup);
     }
