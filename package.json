@@ -7,7 +7,7 @@
     "jshint": "jshint index.js test",
     "jscs": "jscs index.js test",
     "validate": "npm run jshint && npm run jscs",
-    "testling": "browserify -t brfs test/test.js | testling",
+    "testling": "browserify test/test.js | testling",
     "unit": "(cd test; covert test.js && ./cli.sh)",
     "test": "npm run validate && npm run unit"
   },
@@ -38,7 +38,6 @@
     "nomnom": "^1.8.0"
   },
   "devDependencies": {
-    "brfs": "^1.2.0",
     "browserify": "^5.9.1",
     "covert": "^0.4.0",
     "jscs": "^1.5.9",

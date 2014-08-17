@@ -9,7 +9,6 @@ util.inherits(JSONMLParser, Transform);
 function JSONMLParser() {
     Transform.call(this);
     this._readableState.objectMode = true;
-    this._parent = [];
     this.source = new Parser(this._createSourceOptions());
 }
 
@@ -21,37 +20,41 @@ JSONMLParser.prototype._transform = function(chunk, encoding, done) {
 JSONMLParser.prototype._flush = function(done) {
     this._onParseDone = done;
     this.source.end();
-    done();
 };
 
 JSONMLParser.prototype._createSourceOptions = function() {
     var transform = this;
+    var parent;
     return {
         onopentag: function(tagName, attributes) {
             var element = [tagName];
             if (!isEmpty(attributes)) {
                 element.push(attributes);
             }
-            transform._parent.push(element);
-            element.parent = transform._parent;
-            transform._parent = element;
+            if (parent) {
+                parent.push(element);
+                element.parent = parent;
+            }
+            parent = element;
         },
         ontext: function(text) {
-            transform._parent.push(decode(text));
+            (parent || transform).push(decode(text));
         },
         oncomment: function(text) {
-            transform._parent.push(['#comment', text]);
+            (parent || transform).push(['#comment', text]);
         },
         onclosetag: function() {
-            var parent = transform._parent.parent;
-            delete transform._parent.parent;
-            transform._parent = parent;
+            var p = parent.parent;
+            delete parent.parent;
+            if (!p) {
+                transform.push(parent);
+            }
+            parent = p;
         },
         onerror: function(err) {
             transform.emit('error', err);
         },
         onend: function() {
-            transform.push(transform._parent);
             transform._onParseDone();
         }
     };
@@ -62,8 +65,15 @@ module.exports = function(markup, callback) {
     if (isEmpty(arguments)) {
         return parser;
     } else {
+        var result = [];
         parser.on('data', function(data) {
-            callback(null, data);
+            result.push(data);
+        });
+        parser.on('end', function() {
+            if (result.length < 2) {
+                result = result[0];
+            }
+            callback(null, result);
         });
         parser.on('error', callback);
         parser.end(markup);

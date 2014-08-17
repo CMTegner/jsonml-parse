@@ -1,9 +1,0 @@
-[["ul",
-    "\n    ",
-    ["li", "One"],
-    "\n    ",
-    ["li", { "class": "selected" }, "Two"],
-    "\n    ",
-    ["li", "Three"],
-    "\n"
-]]
