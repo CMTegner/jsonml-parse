@@ -9,7 +9,7 @@
     "validate": "npm run jshint && npm run jscs",
     "testling": "browserify test/test.js | testling",
     "unit": "(cd test; covert test.js && ./cli.sh)",
-    "test": "npm run validate && npm run unit"
+    "test": "npm run validate && npm run unit && npm run testling"
   },
   "bin": {
     "jsonmlparse": "bin/cli.js"
