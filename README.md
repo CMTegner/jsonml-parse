@@ -23,6 +23,12 @@ With [npm](http://npmjs.org) do:
 npm install jsonml-parse
 ```
 
+`jsonml-parse` also works in the browser, both via [browserify](http://browserify.org) and as a [stand-alone script](http://wzrd.in/standalone/jsonml-parse@latest):
+
+```html
+<script src="http://wzrd.in/standalone/jsonml-parse@latest"></script>
+```
+
 ## Usage
 
 ```javascript
