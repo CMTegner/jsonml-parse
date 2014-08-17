@@ -10,7 +10,7 @@ var args = require('nomnom')
     })
     .option('file', {
         position: 0,
-        help: 'The file containing the markup to convert to JSONML'
+        help: 'The file containing the markup to convert to JSONML, will read from stdin if not specified'
     })
     .option('version', {
         flag: true,
