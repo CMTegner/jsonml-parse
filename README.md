@@ -2,7 +2,9 @@
 
 Convert markup (HTML) in text form to [JSONML](http://jsonml.org).
 
-[![Travis CI Build Status](https://travis-ci.org/CMTegner/jsonml-parse.svg)](http://travis-ci.org/CMTegner/jsonml-parse) [![Dependency Status](https://david-dm.org/CMTegner/jsonml-parse/status.svg)](https://david-dm.org/CMTegner/jsonml-parse) [![NPM Module Version](https://badge.fury.io/js/jsonml-parse.svg)](https://npm.im/jsonml-parse)
+[![Travis CI Build Status](https://travis-ci.org/CMTegner/jsonml-parse.svg)](http://travis-ci.org/CMTegner/jsonml-parse) [![Dependency Status](https://david-dm.org/CMTegner/jsonml-parse/status.svg)](https://david-dm.org/CMTegner/jsonml-parse)
+
+[![NPM Module](https://nodei.co/npm/jsonml-parse.png)](http://npm.im/jsonml-parse)
 
 [![Browser support](https://ci.testling.com/CMTegner/jsonml-parse.png)](https://ci.testling.com/CMTegner/jsonml-parse)
 
