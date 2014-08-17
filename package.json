@@ -8,7 +8,8 @@
     "jscs": "jscs index.js test",
     "validate": "npm run jshint && npm run jscs",
     "testling": "browserify -t brfs test/test.js | testling",
-    "test": "cd test; covert test.js && ./cli.sh"
+    "unit": "(cd test; covert test.js && ./cli.sh)",
+    "test": "npm run validate && npm run unit"
   },
   "bin": {
     "jsonmlparse": "bin/cli.js"
