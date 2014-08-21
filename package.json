@@ -8,7 +8,7 @@
     "jscs": "jscs index.js test",
     "validate": "npm run jshint && npm run jscs",
     "node-test": "browserify -t coverify test/test.js | node | coverify",
-    "browser-test": "browserify -t coverify test/test.js | testling -x phantomjs | coverify",
+    "browser-test": "browserify -t coverify test/test.js | testling | coverify",
     "cli-test": "test/cli.sh",
     "test": "npm run validate && npm run node-test && npm run cli-test"
   },
