@@ -41,11 +41,11 @@ var parse = require('jsonml-parse');
 
 ### parse(markup, callback)
 
-Parses the `markup` string and invokes `callback` when done. `callback` is treated as a node-style callback, i.e. the first argument will always be the error object (`null` on success), and the second will always be the JSONML result. *Note:* If `markup` contains multiple top-level nodes they will be wrapped in an array before being passed to `callback`.
+Parses the `markup` string and invokes `callback` when done. `callback` is treated as a node-style callback, i.e. the first argument will always be the error object (`null` on success), and the second will always be the JSONML result. *Note:* If `markup` contains multiple top-level nodes they will be wrapped in an array before being passed to `callback`. This will also be the case if your markup has leading and/or trailing whitespace/text. For consistent resuls be sure to `String#trim()` the markup before passing it to `parse()`.
 
 ### var stream = parse()
 
-Returns a new [transform stream](http://nodejs.org/api/stream.html#stream_class_stream_transform) which you will write the markup to, and read the JSONML from. *Note:* Each top-level node will be emitted as separate 'data' events.
+Returns a new [transform stream](http://nodejs.org/api/stream.html#stream_class_stream_transform) which you will write the markup to, and read the JSONML from. *Note:* Each top-level node will be emitted as separate 'data' events. Any whitespace/text before, after, or in between top-level nodes will be treated as a separate top-level nodes, so be sure to handle accordingly in your `data` event handlers.
 
 ## CLI
 
