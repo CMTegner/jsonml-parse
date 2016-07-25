@@ -7,10 +7,10 @@ var decode = (new (require('html-entities').AllHtmlEntities)()).decode;
 
 util.inherits(JSONMLParser, Transform);
 
-function JSONMLParser() {
+function JSONMLParser(options) {
     Transform.call(this);
     this._readableState.objectMode = true;
-    this.source = new Parser(this._createSourceOptions());
+    this.source = new Parser(this._createSourceOptions(options));
 }
 
 JSONMLParser.prototype._transform = function(chunk, encoding, done) {
@@ -23,7 +23,7 @@ JSONMLParser.prototype._flush = function(done) {
     this.source.end();
 };
 
-JSONMLParser.prototype._createSourceOptions = function() {
+JSONMLParser.prototype._createSourceOptions = function(options) {
     var transform = this;
     var parent;
     return {
@@ -39,7 +39,7 @@ JSONMLParser.prototype._createSourceOptions = function() {
             parent = element;
         },
         ontext: function(text) {
-            (parent || transform).push(decode(text));
+            (parent || transform).push(options.preserveEntities ? text : decode(text));
         },
         oncomment: function(text) {
             (parent || transform).push(['#comment', text]);
@@ -61,8 +61,8 @@ JSONMLParser.prototype._createSourceOptions = function() {
     };
 };
 
-module.exports = function(markup, callback) {
-    var parser = new JSONMLParser();
+module.exports = function(markup, callback, options) {
+    var parser = new JSONMLParser(options || {});
     if (isEmpty(arguments)) {
         return parser;
     } else {
